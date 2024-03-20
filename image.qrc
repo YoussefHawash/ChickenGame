@@ -1,1 +1,5 @@
-<RCC/>
+<RCC>
+    <qresource prefix="/soora">
+        <file>images/ship.png</file>
+    </qresource>
+</RCC>
