@@ -1,12 +1,16 @@
 #include "enemy.h"
+#include "player.h"
 #include <QGraphicsScene>
 #include <stdlib.h> // rand() -> to generate really large integer
 #include <QTimer>
 #include <QDebug>
 
-Enemy::Enemy() {
+
+Enemy::Enemy() : QObject(),QGraphicsPixmapItem() {
     // *******  Setting the size of the enemy ********
-    setRect(0,0,100,100);
+    QPixmap chick(":/soora/images/chicken.png");
+    chick=chick.scaled(70,70);
+    this->setPixmap(chick);
 
     // *******  Setting the postion of the enemy within the view dimensions ********
     int random_number = rand() % 700;
@@ -22,9 +26,27 @@ Enemy::Enemy() {
 void Enemy::move()
 {
     setPos(x(),y()+5);
-    if(y()+rect().height()>scene()->height())
+    if(y()+pixmap().height()>scene()->height())
     {
         scene()->removeItem(this);
+        Player::health--;
+        Player::health_text->setPlainText("Health: " + QString::number(Player::health));
         delete this;
+        return;
+    }
+
+    QList<QGraphicsItem *>colliding_items =collidingItems();
+    for(int i=0,n=colliding_items.size();i<n;++i)
+    {
+        if(typeid(*(colliding_items[i]))== typeid(Player))
+        {
+
+            scene()->removeItem(this);
+            Player::health--;
+            Player::health_text->setPlainText("Health: " + QString::number(Player::health));
+            delete this;
+            return;
+
+        }
     }
 }

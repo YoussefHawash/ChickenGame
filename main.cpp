@@ -19,10 +19,11 @@ int main(int argc, char *argv[])
     view.setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
     view.setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
     // *******  Create the Player ********
-    QPixmap plyrimg("C:\\Users\\youse\\Desktop\\Spring 24\\Cs 2 Lab\\ChickenGame\\images\\ship.png");
-    Player *ship=new Player;
+    QPixmap plyrimg(":/soora/images/ship.png");
+    Player *ship=new Player(&scene);
     plyrimg=plyrimg.scaled(70,70);
     ship->setPixmap(plyrimg);
+    scene.addItem(ship);
 
     // *******  Setting the foucs to the Player ********
     ship->setFlag(QGraphicsItem::ItemIsFocusable);
@@ -30,7 +31,11 @@ int main(int argc, char *argv[])
     // *******  Adjust the location of the Player (middle of the screen) ********
     ship->setPos(view.width() / 2, view.height() - plyrimg.height());
 
-    scene.addItem(ship);
+
+    QPixmap back(":/soora/images/background.jpeg");
+    scene.setBackgroundBrush(back.scaled(scene.width(),scene.height(),Qt::IgnoreAspectRatio,Qt::SmoothTransformation));
+
+
     // *******   Assign scene to the view   ***************
     view.setScene(&scene);
     view.show();

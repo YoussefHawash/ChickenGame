@@ -1,5 +1,8 @@
 <RCC>
     <qresource prefix="/soora">
+        <file>images/red_laser.png</file>
         <file>images/ship.png</file>
+        <file>images/chicken.png</file>
+        <file>images/background.jpeg</file>
     </qresource>
 </RCC>

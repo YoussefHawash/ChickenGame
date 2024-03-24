@@ -1,12 +1,13 @@
 #include "bullet.h"
+#include "player.h"
 #include <QGraphicsScene>
 #include<QGraphicsPixmapItem>
 #include <QTimer>
 #include <QList>
 #include "enemy.h"
 Bullet::Bullet()  : QObject(), QGraphicsPixmapItem() {
-    QPixmap bulletimg("C:\\Users\\youse\\Desktop\\Spring 24\\Cs 2 Lab\\ChickenGame\\images\\laser.png");
-    bulletimg=bulletimg.scaled(70,70);
+    QPixmap bulletimg(":/soora/images/red_laser.png");
+    bulletimg=bulletimg.scaled(40,40);
     setPixmap(bulletimg);
     // *******  Generating the Bullets automatically ********
     QTimer * timer = new QTimer();
@@ -25,6 +26,8 @@ void Bullet::move()
         {
             scene()->removeItem(colliding_items[i]);
             scene()->removeItem(this);
+            Player::score+=100;
+            Player::score_text->setPlainText("score: " + QString::number(Player::score));
             delete colliding_items[i];
             delete this;
             return;
