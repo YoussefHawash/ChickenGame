@@ -1,15 +1,17 @@
 #ifndef LASER_H
 #define LASER_H
 
-#include <QMainWindow>
+
 #include <QObject>
-#include <QWidget>
 #include <QGraphicsPixmapItem>
 
-class Laser:public QObject,public QGraphicsPixmapItem
+class Laser: public QObject, public QGraphicsPixmapItem
 {
+    Q_OBJECT
 public:
     Laser();
+private slots:
+    void move();
 };
 
 #endif // LASER_H
