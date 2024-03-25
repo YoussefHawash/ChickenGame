@@ -1,14 +1,20 @@
 #include "bullet.h"
-#include "player.h"
+#include <QAudioOutput>
+#include <QGraphicsPixmapItem>
 #include <QGraphicsScene>
-#include<QGraphicsPixmapItem>
 #include <QTimer>
-#include <QList>
+#include <QtMultimedia/QMediaPlayer>
 #include "enemy.h"
+#include "player.h"
 Bullet::Bullet()  : QObject(), QGraphicsPixmapItem() {
-    QPixmap bulletimg(":/soora/images/red_laser.png");
-    bulletimg=bulletimg.scaled(40,40);
-    setPixmap(bulletimg);
+    QPixmap bulletimg(":/resources/images/red_laser.png");
+    setPixmap(bulletimg.scaled(40, 40));
+    QMediaPlayer *sound = new QMediaPlayer;
+    QAudioOutput *audioOutput = new QAudioOutput();
+    sound->setSource(QUrl("qrc:/resources/sounds/laser.mp3"));
+    sound->setAudioOutput(audioOutput);
+    audioOutput->setVolume(0.5);
+    sound->play();
     // *******  Generating the Bullets automatically ********
     QTimer * timer = new QTimer();
     connect(timer, SIGNAL(timeout()),this,SLOT (move()));
@@ -24,9 +30,15 @@ void Bullet::move()
     {
         if(typeid(*(colliding_items[i]))== typeid(Enemy))
         {
+            QMediaPlayer *sound = new QMediaPlayer;
+            QAudioOutput *audioOutput = new QAudioOutput();
+            sound->setSource(QUrl("qrc:/resources/sounds/quack.m4a"));
+            sound->setAudioOutput(audioOutput);
+            audioOutput->setVolume(0.5);
+            sound->play();
             scene()->removeItem(colliding_items[i]);
             scene()->removeItem(this);
-            Player::score+=100;
+            Player::increasescore();
             Player::score_text->setPlainText("score: " + QString::number(Player::score));
             delete colliding_items[i];
             delete this;

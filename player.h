@@ -7,14 +7,16 @@
 class Player: public QObject, public QGraphicsPixmapItem
 {
     Q_OBJECT
+
 public:
-    Player(QGraphicsScene*);
+    Player(QGraphicsScene *);
     void keyPressEvent(QKeyEvent * event);
     static int score;
     static int health;
     static QGraphicsTextItem *score_text;
     static QGraphicsTextItem* health_text;
-
+    static void decreasehealth();
+    static void increasescore();
 public slots:
     void createEnemy();
 

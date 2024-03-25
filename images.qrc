@@ -1,0 +1,11 @@
+<RCC>
+    <qresource prefix="/resources">
+        <file>images/background.jpeg</file>
+        <file>images/laser.png</file>
+        <file>images/red_laser.png</file>
+        <file>images/ship.png</file>
+        <file>images/chicken.png</file>
+        <file>sounds/laser.mp3</file>
+        <file>sounds/quack.m4a</file>
+    </qresource>
+</RCC>
