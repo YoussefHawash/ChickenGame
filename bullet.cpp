@@ -6,6 +6,8 @@
 #include <QtMultimedia/QMediaPlayer>
 #include "enemy.h"
 #include "player.h"
+#include "hud.h"
+
 Bullet::Bullet()  : QObject(), QGraphicsPixmapItem() {
     QPixmap bulletimg(":/resources/images/red_laser.png");
     setPixmap(bulletimg.scaled(40, 40));
@@ -38,8 +40,7 @@ void Bullet::move()
             sound->play();
             scene()->removeItem(colliding_items[i]);
             scene()->removeItem(this);
-            Player::increasescore();
-            Player::score_text->setPlainText("score: " + QString::number(Player::score));
+            HUD::increase();
             delete colliding_items[i];
             delete this;
             return;

@@ -6,24 +6,21 @@
 #include <QtMultimedia/QMediaPlayer>
 #include "bullet.h"
 #include "enemy.h"
+#include <QTimer>
+#include <QMessageBox>
 
-QGraphicsTextItem *Player::score_text = new QGraphicsTextItem;
-QGraphicsTextItem *Player::health_text = new QGraphicsTextItem;
-int Player::score = 0;
-int Player::health = 3;
+QTimer *Player::timer=new QTimer;
+
 Player::Player(QGraphicsScene *scene)
 {
-    score_text->setDefaultTextColor(Qt::blue);
-    score_text->setFont(QFont("serif", 20));
-    score_text->setPlainText("score: " + QString::number(0));
-    score_text->setPos(10, 45);
-    health_text->setDefaultTextColor(Qt::red);
-    health_text->setFont(QFont("serif", 20));
-    health_text->setPlainText("Health: " + QString::number(3));
-    health_text->setPos(10, 20);
-    scene->addItem(health_text);
-    scene->addItem(score_text);
+
+    // *******  Create the Enemies automatically ********
+
+    QObject::connect(timer, SIGNAL(timeout()),this,SLOT(createEnemy()));
+    timer->start(2000);
 }
+
+
 
 void Player::keyPressEvent(QKeyEvent *event)
 {
@@ -60,15 +57,6 @@ void Player::keyPressEvent(QKeyEvent *event)
     }
 }
 
-void Player::decreasehealth()
-{
-    health--;
-}
-
-void Player::increasescore()
-{
-    score += 100;
-}
 // CreateEnemy function used to create the eneimes
 void Player::createEnemy()
 {

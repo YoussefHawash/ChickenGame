@@ -4,6 +4,9 @@
 #include <stdlib.h> // rand() -> to generate really large integer
 #include <QTimer>
 #include <QDebug>
+#include <QMessageBox>
+#include <QtMultimedia/QMediaPlayer>
+#include "hud.h"
 
 Enemy::Enemy()
     : QObject()
@@ -29,9 +32,9 @@ void Enemy::move()
     {
         scene()->removeItem(this);
 
-        Player::decreasehealth();
+        HUD::decrease();
 
-        Player::health_text->setPlainText("Health: " + QString::number(Player::health));
+
         delete this;
         return;
     }
@@ -40,10 +43,10 @@ void Enemy::move()
     for(int i=0,n=colliding_items.size();i<n;++i)
     {
         if (typeid(*(colliding_items[i])) == typeid(Player)) {
-            Player::decreasehealth();
-            Player::health_text->setPlainText("Health: " + QString::number(Player::health));
+            HUD::decrease();
             delete this;
             return;
         }
     }
+
 }

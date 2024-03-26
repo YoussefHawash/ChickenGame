@@ -7,5 +7,7 @@
         <file>images/chicken.png</file>
         <file>sounds/laser.mp3</file>
         <file>sounds/quack.m4a</file>
+        <file>sounds/game-over-arcade-6435.mp3</file>
+        <file>sounds/7aga.mp3</file>
     </qresource>
 </RCC>

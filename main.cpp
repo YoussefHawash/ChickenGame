@@ -6,6 +6,9 @@
 #include <QGraphicsView>
 #include <QTimer>
 #include "player.h"
+#include "hud.h"
+#include <QtMultimedia/QMediaPlayer>
+#include<QAudioOutput>
 
 int main(int argc, char *argv[])
 {
@@ -35,11 +38,31 @@ int main(int argc, char *argv[])
                                           Qt::IgnoreAspectRatio,
                                           Qt::SmoothTransformation));
 
+
+
+    HUD::scoreText->setDefaultTextColor(Qt::blue);
+    HUD::scoreText->setFont(QFont("serif", 20));
+    HUD::scoreText->setPlainText("score: " + QString::number(0));
+    HUD::scoreText->setPos(10, 45);
+    HUD::healthText->setDefaultTextColor(Qt::red);
+    HUD::healthText->setFont(QFont("serif", 20));
+    HUD::healthText->setPlainText("Health: " + QString::number(3));
+    HUD::healthText->setPos(10, 20);
+    scene->addItem(HUD::healthText);
+    scene->addItem(HUD::scoreText);
+
+    QAudioOutput* audioOutput = new QAudioOutput();
+    QMediaPlayer* soundEffect = new QMediaPlayer();
+    soundEffect->setSource(QUrl(":/resources/sounds/7aga.mp3"));
+    soundEffect->setAudioOutput(audioOutput);
+    audioOutput->setVolume(50);
+    soundEffect->setLoops(1000);
+    soundEffect->play();
+
+
+
     view->show();
-    // *******  Create the Enemies automatically ********
-    QTimer * time = new QTimer();
-    QObject::connect(time, SIGNAL(timeout()),ship,SLOT(createEnemy()));
-    time->start(2000);
+
 
 
 
