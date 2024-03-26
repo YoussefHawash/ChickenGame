@@ -53,7 +53,7 @@ int main(int argc, char *argv[])
 
     QAudioOutput* audioOutput = new QAudioOutput();
     QMediaPlayer* soundEffect = new QMediaPlayer();
-    soundEffect->setSource(QUrl(":/resources/sounds/7aga.mp3"));
+    soundEffect->setSource(QUrl("qrc:/resources/sounds/7aga.mp3"));
     soundEffect->setAudioOutput(audioOutput);
     audioOutput->setVolume(50);
     soundEffect->setLoops(1000);

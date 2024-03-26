@@ -32,7 +32,7 @@ void HUD::decrease()
 
                QMediaPlayer *sound = new QMediaPlayer();
              QAudioOutput *audioOutput = new QAudioOutput();
-             sound->setSource(QUrl(":/resources/sounds/game-over-arcade-6435.mp3"));
+             sound->setSource(QUrl("qrc:/resources/sounds/game-over-arcade-6435.mp3"));
              sound->setAudioOutput(audioOutput);
              audioOutput->setVolume(50);
              sound->play();
